@@ -1,5 +1,5 @@
 export const SliderData = [
-  { image: "http://localhost:5173/src/assets/html.png" },
+  { image: "../src/assets/html.png" },
   { image: "./src/assets/css.png" },
   { image: "./src/assets/javascript.png" },
   { image: "./src/assets/react.png" },

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-scroll";
 import { BsFillMoonStarsFill, BsFillSunFill } from "react-icons/bs";
@@ -17,6 +17,35 @@ const Banner = ({ darkMode, setDarkMode }) => {
   const handleLinkClick = (to) => {
     setactiveLink(to);
   };
+  const getActiveLink = (elementId, scrollPosition) => {
+    const element = document.getElementById(elementId);
+    if (!element) {
+      return null;
+    }
+
+    const elementTop = element.getBoundingClientRect().top + scrollPosition;
+    return elementTop <= 0 && elementTop + element.offsetHeight > 0
+      ? elementId
+      : null;
+  };
+  const handleScroll = (event) => {
+    const scrollPosition = window.scrollY;
+
+    setactiveLink(
+      getActiveLink("Hero", scrollPosition) ||
+        getActiveLink("About", scrollPosition) ||
+        getActiveLink("Skills", scrollPosition) ||
+        getActiveLink("Contact", scrollPosition) ||
+        activeLink
+    );
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
