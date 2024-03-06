@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Me from "../assets/me.png";
 import bgme from "../assets/bg-me.png";
 import bgrme from "../assets/bgr-me.png";
@@ -7,6 +7,18 @@ import Typewriter from "./Typewriter";
 import TypeWrite from "./TypeWrite";
 
 const Hero = ({ ShowRes, darkMode }) => {
+  const openNewTab = (url) => {
+    window.open(url, "_blank", "noreferrer");
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+  const divRef = useRef(null);
+  const handelClick = (e) => {
+    if (divRef.current === e.target) {
+      setIsOpen(false);
+    }
+  };
+
   return (
     <>
       <main name="Hero" className={darkMode ? "dark" : ""}>
@@ -29,9 +41,29 @@ const Hero = ({ ShowRes, darkMode }) => {
             </p>
           </div>
           <div className="flex justify-evenly text-5xl text-gray-700 dark:text-[#f5f5f5] py-5 md:hidden">
-            <AiFillFacebook />
-            <AiFillGithub />
-            <AiFillMail />
+            <AiFillFacebook
+              onClick={() =>
+                openNewTab("https://web.facebook.com/calebandrei123/")
+              }
+              className={isOpen ? "hidden" : ""}
+            />
+            <AiFillGithub
+              onClick={() => openNewTab("https://github.com/Error404awit")}
+              className={isOpen ? "hidden" : ""}
+            />
+            <AiFillMail
+              onClick={() => setIsOpen(true)}
+              className={isOpen ? "hidden" : ""}
+            />
+            {isOpen && (
+              <div
+                ref={divRef}
+                onClick={handelClick}
+                className="w-full h-12 text-2xl flex justify-evenly items-center"
+              >
+                calebandreijuanito@gmail.com
+              </div>
+            )}
           </div>
           <div className="w-80 h-80 rounded-full overflow-hidden mx-auto relative lg:hover:translate-x-5 duration-300 mt-20 md:mt-0">
             {/*<img src={Me} alt="Me img" />*/}
