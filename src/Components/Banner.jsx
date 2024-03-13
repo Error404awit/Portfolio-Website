@@ -13,39 +13,6 @@ const Banner = ({ darkMode, setDarkMode }) => {
   const toggleTheme = () => {
     setDarkMode(!darkMode);
   };
-  const [activeLink, setactiveLink] = useState("Hero");
-  const handleLinkClick = (to) => {
-    setactiveLink(to);
-  };
-  const getActiveLink = (elementId, scrollPosition) => {
-    const element = document.getElementById(elementId);
-    if (!element) {
-      return null;
-    }
-
-    const elementTop = element.getBoundingClientRect().top + scrollPosition;
-    return elementTop <= 0 && elementTop + element.offsetHeight > 0
-      ? elementId
-      : null;
-  };
-  const handleScroll = (event) => {
-    const scrollPosition = window.scrollY;
-
-    setactiveLink(
-      getActiveLink("Hero", scrollPosition) ||
-        getActiveLink("About", scrollPosition) ||
-        getActiveLink("Skills", scrollPosition) ||
-        getActiveLink("Contact", scrollPosition) ||
-        activeLink
-    );
-  };
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <>
@@ -76,54 +43,45 @@ const Banner = ({ darkMode, setDarkMode }) => {
           }`}
         >
           <ul className="hidden md:flex text-[#1d1d20] dark:text-white">
-            <li
-              className={`p-4 cursor-pointer text-lg ${activeLink === "Hero" ? "active-Link" : ""}`}
-            >
+            <li className={`nav-item p-4 cursor-pointer text-lg`}>
               <Link
                 to="Hero"
+                spy={true}
                 smooth={true}
                 duration={500}
-                onClick={() => handleLinkClick("Hero")}
-                className="underline-animation"
+                className="nav-item underline-animation"
               >
                 Home
               </Link>
             </li>
-            <li
-              className={`p-4 cursor-pointer text-lg
-              ${activeLink === "About" ? "active-Link" : ""}`}
-            >
+            <li className={`nav-item p-4 cursor-pointer text-lg`}>
               <Link
                 to="About"
+                spy={true}
                 smooth={true}
                 duration={500}
-                onClick={() => handleLinkClick("About")}
                 className="underline-animation"
               >
                 About
               </Link>
             </li>
-            <li
-              className={`p-4 cursor-pointer text-lg ${activeLink === "Skills" ? "active-Link" : ""}`}
-            >
+            <li className={`nav-item p-4 cursor-pointer text-lg`}>
               <Link
                 to="Skills"
+                spy={true}
                 smooth={true}
                 duration={500}
-                onClick={() => handleLinkClick("Skills")}
                 className="underline-animation"
               >
                 Skills
               </Link>
             </li>
-            <li
-              className={`p-4 cursor-pointer text-lg ${activeLink === "Contact" ? "active-Link" : ""}`}
-            >
+            <li className={`nav-item p-4 cursor-pointer text-lg`}>
               <Link
                 to="Contact"
+                spy={true}
                 smooth={true}
                 duration={500}
-                onClick={() => handleLinkClick("Contact")}
                 className="underline-animation"
               >
                 Contact

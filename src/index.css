@@ -43,20 +43,15 @@
     after:left-[0] dark:after:bg-[#fab700] after:bg-[#212121] after:[transition:transform_0.25s_ease-out]
     hover:after:scale-x-100;
   }
-  .active-Link {
+  .theme-Icon {
+    @apply absolute text-yellow-200 z-10 top-[.48em] left-[.80em];
+  }
+  .nav-item .active {
     text-decoration: underline;
     text-decoration-thickness: 3px;
     text-underline-offset: 4px;
 
     @apply dark:decoration-[#fab700];
-  }
-  .theme-Icon {
-    @apply absolute text-yellow-200 z-10 top-[.48em] left-[.80em];
-  }
-  .Active {
-    text-decoration: underline;
-    text-decoration-thickness: 3px;
-    text-underline-offset: 4px;
   }
 }
 
