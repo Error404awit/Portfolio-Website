@@ -49,17 +49,20 @@ const Resume = ({ ShowRes, setShowRes, darkMode }) => {
         </div>
         <form
           className="flex flex-col items-center justify-between gap-6 w-2/4"
+          action="https://formsubmit.co/5d4f92b00ff077c72a58f0d83597df56"
+          method="POST"
           onSubmit={(e) => {
-            e.preventDefault();
             if (emailRef.current.value) {
               handleDownload();
             } else {
               alert("Please enter your email address.");
+              e.preventDefault();
             }
           }}
         >
           <input
             type="email"
+            name="email"
             placeholder="Example@gmail.com"
             required
             ref={emailRef}
