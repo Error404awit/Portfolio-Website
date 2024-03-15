@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import { Link } from "react-scroll";
 import { BsFillMoonStarsFill, BsFillSunFill } from "react-icons/bs";
@@ -6,12 +6,27 @@ import { AiOutlineBars, AiOutlineClose } from "react-icons/ai";
 import "./Switch.css";
 import Logo from "../assets/Logo_.svg";
 import Logoc from "../assets/Logo_C.svg";
+import { GoDownload } from "react-icons/go";
+import myResume from "../assets/myResume.pdf";
 
 const Banner = ({ darkMode, setDarkMode }) => {
   const [Clicked, setClicked] = useState(false);
-  const handelClick = () => setClicked(!Clicked);
+  const handleClick = () => setClicked(!Clicked);
   const toggleTheme = () => {
     setDarkMode(!darkMode);
+  };
+
+  const emailRef = useRef(null);
+  const handleDownload = async () => {
+    const response = await fetch(myResume);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "CALEB ANDREI JUANTIO Resume.pdf";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
   };
 
   return (
@@ -118,9 +133,13 @@ const Banner = ({ darkMode, setDarkMode }) => {
           </div>
           {/*bg-[#1d1d20] #c8a475*/}
           {/******mobile view ng Nav Bar******/}
-          <div className="md:hidden text-xl text-white dark:text-[#1d1d20] p-1 rounded dark:bg-[#f5f5f5] bg-cyan-500">
-            Resume
-          </div>
+          <button
+            onClick={() => handleDownload()}
+            className="md:hidden text-xl text-white dark:text-[#1d1d20] p-1 rounded dark:bg-[#f5f5f5] bg-cyan-500 w-[6.5rem]
+          flex flex-row justify-between items-center"
+          >
+            Resume <GoDownload />
+          </button>
           <div className="md:hidden text-xl ml-4">
             {darkMode ? (
               <BsFillMoonStarsFill
@@ -139,7 +158,7 @@ const Banner = ({ darkMode, setDarkMode }) => {
           <AiOutlineBars
             size={30}
             className="ml-4 dark:text-[#f5f5f5] md:hidden"
-            onClick={handelClick}
+            onClick={handleClick}
           />
         </nav>
       </header>
@@ -156,16 +175,16 @@ const Banner = ({ darkMode, setDarkMode }) => {
         <div
           className={`mt-[17px] mr-4 text-2xl absolute left-[88.5%] ${darkMode ? "text-white" : ""}`}
         >
-          <AiOutlineClose size={30} onClick={handelClick} />
+          <AiOutlineClose size={30} onClick={handleClick} />
         </div>
         <ul className="flex flex-col justify-evenly items-center mr-auto ml-auto pt-60 text-white">
           <li className="p-4 cursor-pointer text-3xl">
-            <Link to="Hero" smooth={true} duration={500} onClick={handelClick}>
+            <Link to="Hero" smooth={true} duration={500} onClick={handleClick}>
               Home
             </Link>
           </li>
           <li className="p-4 cursor-pointer text-3xl">
-            <Link to="About" smooth={true} duration={500} onClick={handelClick}>
+            <Link to="About" smooth={true} duration={500} onClick={handleClick}>
               About
             </Link>
           </li>
@@ -174,7 +193,7 @@ const Banner = ({ darkMode, setDarkMode }) => {
               to="Skills"
               smooth={true}
               duration={500}
-              onClick={handelClick}
+              onClick={handleClick}
             >
               Skills
             </Link>
@@ -184,7 +203,7 @@ const Banner = ({ darkMode, setDarkMode }) => {
               to="Contact"
               smooth={true}
               duration={500}
-              onClick={handelClick}
+              onClick={handleClick}
             >
               Contact
             </Link>
